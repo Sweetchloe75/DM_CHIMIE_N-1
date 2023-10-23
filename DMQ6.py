@@ -10,8 +10,9 @@ C1 = 0.1 * 10 ** 3
 V1 = 10 * 10 ** -6  # V1 sera en m3
 # 2nd réactif: le réactif titrant
 C2 = 0.1012 * 10 ** 3
-V2max = 25  # en m3, volume max de solution titrante
-Veau = 0  # volume d'eau distillée
+V2max = 25  # en mL, volume max de solution titrante
+# volume d'eau distillée
+Veau = 0
 # conductivités molaires ioniques limites
 l1 = 7.3
 l2 = 19.9
@@ -19,7 +20,7 @@ l3 = 5.0
 l4 = 7.6
 
 
-# boucle permettant de calculer la quantité de matière de chaques ions en fonction du Volume versé
+# boucle permettant de calculer la conductivité en fonction du Volume versé
 for V in range(V2max + 1):
     # convertit V de mL en m3
     V = V * 10 ** -6
@@ -44,11 +45,12 @@ for V in range(V2max + 1):
     n2_fin = n2_ini - sto2 * xmax
     if n2_fin < 0:
         n2_fin = 0
-    # calcul des quantités en quantité de matière
+    # calcul des concentrations en quantités en quantité de matière
     C_HO = n2_fin / (V + Veau + V1)  # concentration en H0- en mol/m3
     C_NH4 = n2_fin / (V + Veau + V1)  # concentration en NH4+ en mol/m3
     C_Na = n3 / (V + Veau + V1)  # concentration en Na+ en mol/m3
     C_Cl = n4 / (V + Veau + V1)  # concentration en Cl- en mol/m3
+    #calcul de la conductivité
     conductivite = C_HO * l2 + C_NH4 * l1 + C_Na * l3 + C_Cl * l4
 
     # affichage des points sur une courbe
